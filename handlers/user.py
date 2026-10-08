@@ -1,13 +1,14 @@
+import pytz
 from aiogram.filters import Command
 from aiogram import Router, types
-from database.models import Users
+from database.models import User
 
 router = Router()
 
 @router.message(Command("start"))
 async def start(message: types.Message):
     user_id = message.from_user.id
-    user, created = Users.get_or_create(
+    user, created = User.get_or_create(
         tg_id = user_id,
         defaults={
             'username': message.from_user.username
@@ -17,7 +18,9 @@ async def start(message: types.Message):
 
 @router.message()
 async def echo(message: types.Message):
-    Users.update(time_zone=message.text).where(Users.tg_id == message.from_user.id).execute()
+    # ! ->
+    timezone = pytz.timezone(message.text)
+    User.update(time_zone=timezone).where(User.tg_id == message.from_user.id).execute()
     print("Success")
 
 

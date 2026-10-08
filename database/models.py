@@ -1,18 +1,18 @@
 from .database import db
-from peewee import Model, CharField, DateTimeField, TextField, BigIntegerField, IntegerField
+from peewee import Model, CharField, DateTimeField, BigIntegerField
 import datetime
 
 class BaseModel(Model):
     class Meta:
         database = db
         
-class Users(BaseModel):
-    username = CharField(null=True, unique=True)
-    time_zone = IntegerField(null=True)
+class User(BaseModel):
+    username = CharField(null=True)
+    time_zone = CharField(null=True)
     tg_id = BigIntegerField(unique=True)
     created_at = DateTimeField(default=datetime.datetime.now)
     
 def init_db():
     db.connect()
-    db.create_tables([Users,])
+    db.create_tables([User,])
     
