@@ -5,3 +5,4 @@ load_dotenv()
 
 class Config:
     TOKEN = getenv("TOKEN")
+    DB_NAME = "calendar_base.db"
