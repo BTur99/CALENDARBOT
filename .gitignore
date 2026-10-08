@@ -20,6 +20,7 @@ logs/
 
 # === Python кэш и байт-код ===
 pycache/
+__pycache__/
 *.pyc
 *.pyo
 *.pyd
